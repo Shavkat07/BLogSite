@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
 from django.db import models
+from taggit.managers import TaggableManager
 
 
 class PublishedManager(models.Manager):
@@ -15,6 +16,7 @@ class Post(models.Model):
         DRAFT = 'DF', 'Draft'
         PUBLISHED = 'PB', 'Published'
 
+    tags = TaggableManager()
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=245, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -63,3 +65,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.name} on {self.post}'
+
+
