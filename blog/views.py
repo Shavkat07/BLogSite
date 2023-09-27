@@ -3,6 +3,7 @@ from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from taggit.models import Tag
 
+from django.conf import settings
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, \
     PageNotAnInteger
@@ -53,9 +54,10 @@ def post_share(request, post_id):
                       f"{post.title}"
             message = f"Read {post.title} at {post_url}\n\n" \
                       f"{cd['name']}\'s comments: {cd['comments']}"
+
             send_mail(subject,
                       message,
-                      'storeserver065@yandex.com',
+                      settings.EMAIL_HOST_USER,
                       [cd['to']])
             sent = True
             # ... отправить электронное письмо
@@ -66,14 +68,17 @@ def post_share(request, post_id):
                                                     'sent': sent})
 
 
-class PostListView(ListView):
-    """
-    Альтернативное представление списка постов
-    """
-    queryset = Post.published.all()
-    context_object_name = 'posts'
-    paginate_by = 4
-    template_name = 'blog/post/list.html'
+
+
+
+# class PostListView(ListView):
+#     """
+#     Альтернативное представление списка постов
+#     """
+#     queryset = Post.published.all()
+#     context_object_name = 'posts'
+#     paginate_by = 4
+#     template_name = 'blog/post/list.html'
 
 
 def post_list(request, tag_slug=None):

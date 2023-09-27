@@ -1,4 +1,5 @@
 .idea
 blog/__pycache__/
 mysite/__pycache__/
+.env
 

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -124,8 +124,8 @@ USE_TZ = True
 
 EMAIL_HOST = "smtp.yandex.com"
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "storeserver065@yandex.com"
-EMAIL_HOST_PASSWORD = "ghpcbtjxqiyctqmz"
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_SSL = True
 
 # Static files (CSS, JavaScript, Images)
